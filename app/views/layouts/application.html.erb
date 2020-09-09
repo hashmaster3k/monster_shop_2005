@@ -16,6 +16,7 @@
       <%= link_to "Cart: #{cart.total_items}", "/cart" %>
       <% if current_user %>
         <%= link_to "Log out", '/logout' %>
+        <%= link_to "My Profile", '/profile' %>
       <% else %>
         <%= link_to "Log in", "/login" %>
         <%= link_to "Register", '/register' %>

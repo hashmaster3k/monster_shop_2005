@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     if user = User.find_by(email: params[:email])
       if user.authenticate(params[:password])
         session[:user_id] = user.id
-        flash[:success] = "Successfully logged in"
+        flash[:success] = "Logged in as #{user.name}"
         redirect_to '/profile' if user.user?
         redirect_to '/merchant/dashboard' if user.merchant?
         redirect_to '/admin/dashboard' if user.admin?
