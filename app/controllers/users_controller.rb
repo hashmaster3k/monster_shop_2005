@@ -19,6 +19,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    render file: "/public/404" if !current_user
   end
 
   private
