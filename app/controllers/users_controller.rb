@@ -4,13 +4,13 @@ class UsersController < ApplicationController
   end
 
   def create
-    user = User.new(user_params)
-    if user.save && params[:password] == params[:confirm_password]
-      session[:user_id] = user.id
+    @user = User.new(user_params)
+    if @user.save && params[:password] == params[:confirm_password]
+      session[:user_id] = @user.id
       flash[:success] = "You are now registered and logged in"
       redirect_to '/profile'
     else
-      flash[:alert] = user.errors.full_messages.first
+      flash.now[:alert] = @user.errors.full_messages.first
       render :new
     end
   end
