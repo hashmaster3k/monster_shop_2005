@@ -1,0 +1,8 @@
+<section class = "user_info">
+  <h1><%= @user.name %>'s Profile</h1>
+  <p>Address: <%= @user.address %></p>
+  <p><%= @user.city %>, <%= @user.state %> <%= @user.zip %></p><br>
+  <p>Email: <%= @user.email %></p>
+</section>
+
+<%= link_to "Edit Profile Information" %>
