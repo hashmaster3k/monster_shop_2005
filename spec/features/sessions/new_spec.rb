@@ -40,7 +40,7 @@ RSpec.describe 'NEW SESSION' do
       click_button 'Log in'
 
       expect(current_path).to eq('/profile')
-      expect(page).to have_content("Successfully logged in")
+      expect(page).to have_content("Logged in as #{@user.name}")
 
       within '.topnav' do
         expect(page).to have_link('Log out')
@@ -83,7 +83,7 @@ RSpec.describe 'NEW SESSION' do
       click_button 'Log in'
 
       expect(current_path).to eq('/merchant/dashboard')
-      expect(page).to have_content("Successfully logged in")
+      expect(page).to have_content("Logged in as #{@merchant.name}")
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe 'NEW SESSION' do
       click_button 'Log in'
 
       expect(current_path).to eq('/admin/dashboard')
-      expect(page).to have_content("Successfully logged in")
+      expect(page).to have_content("Logged in as #{@admin.name}")
     end
   end
 end
