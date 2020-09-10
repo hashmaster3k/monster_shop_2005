@@ -13,12 +13,12 @@
       <%= link_to "Home Page", "/" %>
       <%= link_to "All Merchants", "/merchants"%>
       <%= link_to "All Items", "/items"%>
-      <% if current_user && current_user.merchant? %>
+      <% if current_merchant? %>
         <%= link_to "Log out", '/logout' %>
         <%= link_to "My Profile", '/profile' %>
         <%= link_to "Dashboard", '/merchant/dashboard' %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
-      <% elsif current_user && current_user.admin? %>
+      <% elsif current_admin? %>
         <%= link_to "Log out", '/logout' %>
         <%= link_to "My Profile", '/profile' %>
         <%= link_to "Dashboard", '/admin/dashboard' %>

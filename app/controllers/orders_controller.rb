@@ -17,6 +17,7 @@ class OrdersController <ApplicationController
           quantity: quantity,
           price: item.price
           })
+          item.update_quantity_purchased(quantity)
       end
       session.delete(:cart)
       redirect_to "/orders/#{order.id}"

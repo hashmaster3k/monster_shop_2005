@@ -25,4 +25,21 @@ class Item <ApplicationRecord
     item_orders.empty?
   end
 
+  def self.top_5
+    order(quantity_purchased: :desc).limit(5)
+  end
+
+  def self.bottom_5
+    order(quantity_purchased: :asc).limit(5)
+  end
+
+  def self.active_items
+    self.where(active?: true)
+  end
+
+  def update_quantity_purchased(quantity)
+    self.quantity_purchased += quantity
+    self.save
+  end
+
 end
