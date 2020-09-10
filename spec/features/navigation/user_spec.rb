@@ -37,6 +37,22 @@ RSpec.describe 'user navigation' do
 
   describe 'user restricted pathways' do
     it 'user cannot access pathways designated for merchants or admins' do
+      @user = User.create!(name: 'Billy Joel',
+                          address: '123 Song St.',
+                          city: 'Las Vegas',
+                          state: 'NV',
+                          zip: '12345',
+                          email: 'billy_j@user.com',
+                          password: '123',
+                          role: 0)
+
+      visit '/login'
+
+      fill_in :email, with: @user.email
+      fill_in :password, with: '123'
+
+      click_button "Log in"
+
       visit '/merchant'
 
       within '.topnav' do
