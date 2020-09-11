@@ -55,6 +55,38 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+
+      it 'has buttons to increase or decrease quantity of item' do
+        visit '/cart'
+
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+
+        visit '/cart'
+        @items_in_cart.each do |item|
+          within "#cart-item-#{item.id}" do
+            expect(page).to have_button("+")
+          end
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          expect(page).to have_button("+")
+          expect(page).to have_button("-")
+        end
+
+      end
+
+      it 'can increment item in cart' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          11.times do
+            click_button("+")
+          end
+          expect(page).to have_content("12")
+          expect(page).to_not have_button("+")
+        end
+      end
     end
   end
   describe "When I haven't added anything to my cart" do

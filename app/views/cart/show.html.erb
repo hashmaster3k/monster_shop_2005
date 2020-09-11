@@ -31,8 +31,19 @@
       <td>
         <center>
           <p><%=quantity%></p>
-          <p><%= link_to "Remove", "/cart/#{item.id}",method: :delete %></p>
         </center>
+        <p>
+          <% if quantity > 1 %>
+            <%= button_to "-", "/cart/#{item.id}", method: :patch %>
+            <%= link_to "Remove", "/cart/#{item.id}", method: :delete %>
+            <% if item.inventory > quantity %>
+              <%= button_to "+", "/cart/#{item.id}", method: :patch %>
+            <% end %>
+          <% else %>
+            <%= link_to "Remove", "/cart/#{item.id}", method: :delete %>
+            <%= button_to "+", "/cart/#{item.id}", method: :patch %>
+          <% end %>
+        </p>
         </td>
       <td>
         <p><%=number_to_currency(cart.subtotal(item))%></p>
