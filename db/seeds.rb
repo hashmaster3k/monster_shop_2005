@@ -9,6 +9,34 @@
 Merchant.destroy_all
 Item.destroy_all
 
+#user/merchant/admin
+@user = User.create!(name: 'Billy Joel',
+                    address: '123 Song St.',
+                    city: 'Las Vegas',
+                    state: 'NV',
+                    zip: '12345',
+                    email: 'billy_j@user.com',
+                    password: '123',
+                    role: 0)
+
+@merchant = User.create!(name: 'Joel Billy',
+                        address: '125 Song St.',
+                        city: 'Las Vegas',
+                        state: 'NV',
+                        zip: '12345',
+                        email: 'billy_j@merchant.com',
+                        password: '123',
+                        role: 1)
+
+@admin = User.create!(name: 'Chilly Billy',
+                      address: '125 Song St.',
+                      city: 'Las Vegas',
+                      state: 'NV',
+                      zip: '12345',
+                      email: 'chilly_b@admin.com',
+                      password: '123',
+                      role: 2)
+
 #merchants
 bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
 dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
