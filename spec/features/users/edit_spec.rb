@@ -47,18 +47,6 @@ RSpec.describe "User show page" do
     expect(page).to have_content("CO")
   end
 
-  # User Story 21, User Can Edit their Password
-  #
-  # As a registered user
-  # When I visit my profile page
-  # I see a link to edit my password
-  # When I click on the link to edit my password
-  # I see a form with fields for a new password, and a new password confirmation
-  # When I fill in the same password in both fields
-  # And I submit the form
-  # Then I am returned to my profile page
-  # And I see a flash message telling me that my password is updated
-
   it "User profile has a link to edit password" do
     visit "/login"
 
@@ -79,5 +67,26 @@ RSpec.describe "User show page" do
 
     expect(current_path).to eq("/profile")
     expect(page).to have_content("Profile Password Updated")
+  end
+
+  it "edit passwords sad path" do
+    visit "/login"
+
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+
+    click_button "Log in"
+
+    expect(page).to have_link("Edit Profile Password")
+
+    click_link "Edit Profile Password"
+    expect(current_path).to eq("/profile/edit/password")
+
+    fill_in :password, with: "321"
+    fill_in :confirm_password, with: "322"
+
+    click_button "Update Password"
+
+    expect(page).to have_content("Passwords do not match")
   end
 end

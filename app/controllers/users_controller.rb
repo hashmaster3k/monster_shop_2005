@@ -28,15 +28,26 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = current_user
-    @user.update_attribute(:name, user_params[:name])
-    @user.update_attribute(:address, user_params[:address])
-    @user.update_attribute(:city, user_params[:city])
-    @user.update_attribute(:state, user_params[:state])
-    @user.update_attribute(:zip, user_params[:zip])
-    @user.update_attribute(:email, user_params[:email])
-    redirect_to "/profile"
-    flash[:success] = "Profile Information Updated"
+    if params[:password]
+      if params[:password] == params[:confirm_password]
+        current_user.update_attribute(:password, params[:password])
+        flash[:success] = "Profile Password Updated"
+        redirect_to '/profile'
+      else
+        flash[:error] = "Passwords do not match"
+        redirect_to '/profile/edit/password'
+      end
+    else
+      @user = current_user
+      @user.update_attribute(:name, user_params[:name])
+      @user.update_attribute(:address, user_params[:address])
+      @user.update_attribute(:city, user_params[:city])
+      @user.update_attribute(:state, user_params[:state])
+      @user.update_attribute(:zip, user_params[:zip])
+      @user.update_attribute(:email, user_params[:email])
+      redirect_to "/profile"
+      flash[:success] = "Profile Information Updated"
+    end
   end
 
   private
