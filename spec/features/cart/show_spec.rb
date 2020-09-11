@@ -121,6 +121,13 @@ RSpec.describe 'Cart show' do
         end
         expect(page).to_not have_content(@tire.name)
       end
+      it "can see info telling me I must register or log in to finish checking out" do
+        visit '/cart'
+        expect(page).to_not have_link("Checkout")
+        expect(page).to have_content("You must register or log in to finish the checkout process")
+        expect(page).to have_link("register")
+        expect(page).to have_link("log in")
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
