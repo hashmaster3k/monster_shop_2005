@@ -9,7 +9,8 @@ class User < ApplicationRecord
   validates :email, uniqueness: true, presence: true
 
   enum role: %w(user merchant admin)
-
+  has_many :orders
+  
   def update_user_info(params)
     if User.find_by(email: params[:email]) && params[:email] != self.email
       return false

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_10_163447) do
+ActiveRecord::Schema.define(version: 2020_09_11_225910) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -58,6 +58,9 @@ ActiveRecord::Schema.define(version: 2020_09_10_163447) do
     t.integer "zip"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "order_status", default: "pending"
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
@@ -84,5 +87,6 @@ ActiveRecord::Schema.define(version: 2020_09_10_163447) do
   add_foreign_key "item_orders", "items"
   add_foreign_key "item_orders", "orders"
   add_foreign_key "items", "merchants"
+  add_foreign_key "orders", "users"
   add_foreign_key "reviews", "items"
 end
