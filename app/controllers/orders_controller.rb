@@ -9,7 +9,7 @@ class OrdersController <ApplicationController
   end
 
   def create
-    order = Order.create(order_params)
+    order = Order.create(order_params.merge(user_id: current_user.id))
     if order.save
       cart.items.each do |item,quantity|
         order.item_orders.create({
