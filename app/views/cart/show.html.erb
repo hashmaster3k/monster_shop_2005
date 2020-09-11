@@ -30,18 +30,15 @@
       </td>
       <td>
         <center>
-          <p><%=quantity%></p>
+          <div id="quantity-<%= item.id %>">
+            <p><%= quantity %></p>
+          </div>
         </center>
         <p>
-          <% if quantity > 1 %>
-            <%= button_to "-", "/cart/#{item.id}", method: :patch %>
-            <%= link_to "Remove", "/cart/#{item.id}", method: :delete %>
-            <% if item.inventory > quantity %>
-              <%= button_to "+", "/cart/#{item.id}", method: :patch %>
-            <% end %>
-          <% else %>
-            <%= link_to "Remove", "/cart/#{item.id}", method: :delete %>
-            <%= button_to "+", "/cart/#{item.id}", method: :patch %>
+          <%= button_to "-", "/cart/#{item.id}/dec", method: :patch %>
+          <%= link_to "Remove", "/cart/#{item.id}", method: :delete %>
+          <% if item.inventory > quantity %>
+            <%= button_to "+", "/cart/#{item.id}/inc", method: :patch %>
           <% end %>
         </p>
         </td>

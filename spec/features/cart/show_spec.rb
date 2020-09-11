@@ -87,6 +87,40 @@ RSpec.describe 'Cart show' do
           expect(page).to_not have_button("+")
         end
       end
+
+      it 'can decrement item in cart' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("+")
+          end
+          within "#quantity-#{@tire.id}" do
+            expect(page).to have_content("2")
+          end
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("-")
+          end
+
+          within "#quantity-#{@tire.id}" do
+            expect(page).to have_content("1")
+          end
+        end
+      end
+
+      it 'removes item from cart when decrementing quanity of 1' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("-")
+          end
+        end
+        expect(page).to_not have_content(@tire.name)
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
