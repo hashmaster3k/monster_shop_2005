@@ -40,8 +40,8 @@ class UsersController < ApplicationController
       end
     else
       if @user.update_user_info(user_params)
+        flash[:success] = "Profile Information Updated"
         redirect_to "/profile"
-        flash.now[:success] = "Profile Information Updated"
       else
         flash.now[:error]= 'Email address already in use'
         render :edit

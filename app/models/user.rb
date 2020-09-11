@@ -11,7 +11,7 @@ class User < ApplicationRecord
   enum role: %w(user merchant admin)
 
   def update_user_info(params)
-    if User.find_by(email: params[:email]) != self
+    if User.find_by(email: params[:email]) && params[:email] != self.email
       return false
     else
       update_attribute(:name, params[:name])
@@ -20,6 +20,7 @@ class User < ApplicationRecord
       update_attribute(:state, params[:state])
       update_attribute(:zip, params[:zip])
       update_attribute(:email, params[:email])
+      return true
     end
   end
 end
