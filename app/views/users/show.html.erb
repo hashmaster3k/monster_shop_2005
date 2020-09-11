@@ -5,4 +5,5 @@
   <p>Email: <%= @user.email %></p>
 </section>
 
-<%= link_to "Edit Profile Information" %>
+<%= link_to "Edit Profile Information", "/profile/edit", method: :get %>
+<%= link_to "Edit Profile Password", "/profile/edit/password", method: :get %>

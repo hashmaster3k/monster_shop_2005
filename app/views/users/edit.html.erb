@@ -1,0 +1,13 @@
+<%= render partial: 'form', locals: {
+                                      path: "/profile",
+                                      action: :edit,
+                                      method: :patch,
+                                      button_text: 'Update Information'
+                                    } %>
+
+<%= render partial: 'form', locals: {
+                                      path: "/profile",
+                                      action: :password,
+                                      method: :patch,
+                                      button_text: 'Update Password'
+                                    } %>

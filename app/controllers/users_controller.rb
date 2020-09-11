@@ -19,8 +19,24 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(session[:user_id])
+    @user = current_user
     render file: "/public/404" if !current_user
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    @user.update_attribute(:name, user_params[:name])
+    @user.update_attribute(:address, user_params[:address])
+    @user.update_attribute(:city, user_params[:city])
+    @user.update_attribute(:state, user_params[:state])
+    @user.update_attribute(:zip, user_params[:zip])
+    @user.update_attribute(:email, user_params[:email])
+    redirect_to "/profile"
+    flash[:success] = "Profile Information Updated"
   end
 
   private
