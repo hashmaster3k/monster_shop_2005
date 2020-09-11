@@ -28,6 +28,7 @@ class UsersController < ApplicationController
   end
 
   def update
+    @user = current_user
     if params[:password]
       if params[:password] == params[:confirm_password]
         current_user.update_attribute(:password, params[:password])
@@ -38,15 +39,13 @@ class UsersController < ApplicationController
         redirect_to '/profile/edit/password'
       end
     else
-      @user = current_user
-      @user.update_attribute(:name, user_params[:name])
-      @user.update_attribute(:address, user_params[:address])
-      @user.update_attribute(:city, user_params[:city])
-      @user.update_attribute(:state, user_params[:state])
-      @user.update_attribute(:zip, user_params[:zip])
-      @user.update_attribute(:email, user_params[:email])
-      redirect_to "/profile"
-      flash[:success] = "Profile Information Updated"
+      if @user.update_user_info(user_params)
+        redirect_to "/profile"
+        flash.now[:success] = "Profile Information Updated"
+      else
+        flash.now[:error]= 'Email address already in use'
+        render :edit
+      end
     end
   end
 

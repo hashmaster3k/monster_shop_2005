@@ -19,6 +19,15 @@ Item.destroy_all
                     password: '123',
                     role: 0)
 
+@user2 = User.create!(name: 'Bill J',
+                    address: '123 Meledy St.',
+                    city: 'Denver',
+                    state: 'CO',
+                    zip: '54321',
+                    email: 'bill_j@user.com',
+                    password: '321',
+                    role: 0)
+
 @merchant = User.create!(name: 'Joel Billy',
                         address: '125 Song St.',
                         city: 'Las Vegas',

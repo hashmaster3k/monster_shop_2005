@@ -89,4 +89,36 @@ RSpec.describe "User show page" do
 
     expect(page).to have_content("Passwords do not match")
   end
+
+  # User Story 22, User Editing Profile Data must have unique Email address
+  #
+  # As a registered user
+  # When I attempt to edit my profile data
+  # If I try to change my email address to one that belongs to another user
+  # When I submit the form
+  # Then I am returned to the profile edit page
+  # And I see a flash message telling me that email address is already in use
+
+  it "User Editing Profile Data must have unique Email address" do
+    user2 = User.create!(name: 'Bill J',
+                        address: '123 Meledy St.',
+                        city: 'Denver',
+                        state: 'CO',
+                        zip: '54321',
+                        email: 'bill_j@user.com',
+                        password: '321',
+                        role: 0)
+    visit "/login"
+
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+
+    click_button "Log in"
+
+    click_link "Edit Profile Information"
+    fill_in :email, with: "bill_j@user.com"
+    click_button "Update Information"
+
+    expect(page).to have_content("Email address already in use")
+  end
 end
