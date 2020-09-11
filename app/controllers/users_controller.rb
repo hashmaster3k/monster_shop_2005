@@ -19,7 +19,34 @@ class UsersController < ApplicationController
   end
 
   def show
+    @user = current_user
     render file: "/public/404" if !current_user
+  end
+
+  def edit
+    @user = current_user
+  end
+
+  def update
+    @user = current_user
+    if params[:password]
+      if params[:password] == params[:confirm_password]
+        current_user.update_attribute(:password, params[:password])
+        flash[:success] = "Profile Password Updated"
+        redirect_to '/profile'
+      else
+        flash[:error] = "Passwords do not match"
+        redirect_to '/profile/edit/password'
+      end
+    else
+      if @user.update_user_info(user_params)
+        flash[:success] = "Profile Information Updated"
+        redirect_to "/profile"
+      else
+        flash.now[:error]= 'Email address already in use'
+        render :edit
+      end
+    end
   end
 
   private
