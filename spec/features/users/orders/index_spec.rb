@@ -1,11 +1,3 @@
-# User Story 27, User Profile displays Orders link
-#
-# As a registered user
-# When I visit my Profile page
-# And I have orders placed in the system
-# Then I see a link on my profile page called "My Orders"
-# When I click this link my URI path is "/profile/orders"
-
 require "rails_helper"
 
 RSpec.describe "User Orders Index Page" do
@@ -54,4 +46,39 @@ RSpec.describe "User Orders Index Page" do
 
     expect(current_path).to eq("/profile/orders")
   end
+
+# User Story 28, User Profile displays Orders
+#
+# As a registered user
+# When I visit my Profile Orders page, "/profile/orders"
+# I see every order I've made, which includes the following information:
+# - the ID of the order, which is a link to the order show page
+# - the date the order was made
+# - the date the order was last updated
+# - the current status of the order
+# - the total quantity of items in the order
+# - the grand total of all items for that order
+
+  it "I see every order I've made including the orders information" do
+    visit "/login"
+
+    fill_in :email, with: @user.email
+    fill_in :password, with: @user.password
+
+    click_button "Log in"
+
+    within ".topnav" do
+      click_link "My Orders"
+    end
+
+    within "#order-#{@order_1.id}" do
+      expect(page).to have_link("Order ##{@order_1.id}")
+      expect(page).to have_content("Order Creation: #{@order_1.created_at.strftime("%m/%d/%y")}")
+      expect(page).to have_content("Order Update: #{@order_1.updated_at.strftime("%m/%d/%y")}")
+      expect(page).to have_content("Current Status: #{@order_1.order_status}")
+      expect(page).to have_content("Total Quantity: #{@order_1.total_quantity}")
+      expect(page).to have_content("Grand Total: $#{@order_1.grandtotal}")
+    end
+  end
+
 end

@@ -2,6 +2,11 @@
 <ul>
   <section id="order-<%= order.id %>">
     <li><%= link_to "Order ##{order.id}", "/profile/orders/#{order.id}" %></li>
+    <li>Order Creation: <%= order.created_at.strftime("%m/%d/%y") %></li>
+    <li>Order Update: <%= order.updated_at.strftime("%m/%d/%y") %></li>
+    <li>Current Status: <%= order.order_status %></li>
+    <li>Total Quantity: <%= order.total_quantity %></li>
+    <li>Grand Total: $<%= order.grandtotal %></li>
   </section>
 </ul>
 <% end %>
