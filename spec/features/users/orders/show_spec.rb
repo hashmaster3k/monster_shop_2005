@@ -21,15 +21,17 @@ RSpec.describe "User Orders Show Page" do
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
       @order_1.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3)
+
+      visit "/login"
+
+      fill_in :email, with: @user.email
+      fill_in :password, with: @user.password
+
+      click_button "Log in"
     end
 
   it "I see every order I've made including the orders information" do
-    visit "/login"
-
-    fill_in :email, with: @user.email
-    fill_in :password, with: @user.password
-
-    click_button "Log in"
+    visit "/merchants"
 
     within ".topnav" do
       click_link "My Orders"
@@ -79,20 +81,32 @@ RSpec.describe "User Orders Show Page" do
       expect(page).to have_content("$60")
     end
   end
+  it "can see a link to cancel the order" do
+    visit "/profile/orders/#{@order_1.id}"
 
-  # User Story 29, User views an Order Show Page
-  #
-  # As a registered user
-  # When I visit my Profile Orders page
-  # And I click on a link for order's show page
-  # My URL route is now something like "/profile/orders/15"
-  # I see all information about the order, including the following information:
-  # - the ID of the order
-  # - the date the order was made
-  # - the date the order was last updated
-  # - the current status of the order
+    within ".order_info" do
+      expect(page).to have_button("Cancel Order")
+      click_button "Cancel Order"
+    end
 
-  # - each item I ordered description, thumbnail
-  # - the total quantity of items in the whole order
-  # - the grand total of all items for that order
+    expect(current_path).to eq("/profile/orders/#{@order_1.id}")
+    expect(page).to have_content("Your order is now cancelled")
+
+    within ".order_info" do
+      expect(page).to have_content("Current Status:\ncancelled\n")
+    end
+
+    within "#item-#{@pull_toy.id}" do
+      expect(page).to have_content("unfulfilled")
+    end
+
+    within "#item-#{@tire.id}" do
+      expect(page).to have_content("unfulfilled")
+    end
+
+    within "#item-#{@dog_bone.id}" do
+      expect(page).to have_content("unfulfilled")
+    end
+  end
+
 end

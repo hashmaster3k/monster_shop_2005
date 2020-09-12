@@ -12,4 +12,8 @@ class Order <ApplicationRecord
   def total_quantity
     item_orders.sum(:quantity)
   end
+
+  def change_status_cancel
+    update_attribute(:order_status, "cancelled")
+  end
 end
