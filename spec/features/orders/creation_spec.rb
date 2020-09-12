@@ -60,7 +60,6 @@ RSpec.describe("Order Creation") do
 
       within "#order-#{new_order.id}" do
         expect(page).to have_link("Order ##{new_order.id}")
-        click_link "Order ##{new_order.id}"
       end
 
       expect(current_path).to eq("/profile/orders/#{new_order.id}")
