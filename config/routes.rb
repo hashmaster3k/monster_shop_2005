@@ -34,8 +34,6 @@ Rails.application.routes.draw do
 
   get "/orders/new", to: "orders#new"
   post "/orders", to: "orders#create"
-  get "/orders/:id", to: "orders#show"
-
 
   get '/register', to: 'users#new'
   post '/register', to: 'users#create'
@@ -44,11 +42,13 @@ Rails.application.routes.draw do
   get '/profile/edit', to: 'users#edit'
   patch '/profile', to: 'users#update'
   get '/profile/edit/password', to: 'users#edit'
-  get '/profile/orders', to: 'users#index'
 
   get '/login', to: 'sessions#new'
   post '/login', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy'
+
+  get "/profile/orders/:id", to: "user/orders#show"
+  get '/profile/orders', to: 'user/orders#index'
 
   namespace :merchant do
     get '/', to: 'dashboard#index'

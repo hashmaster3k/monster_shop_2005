@@ -1,0 +1,7 @@
+<% current_user.orders.each do |order| %>
+<ul>
+  <section id="order-<%= order.id %>">
+    <li><%= link_to "Order ##{order.id}", "/profile/orders/#{order.id}" %></li>
+  </section>
+</ul>
+<% end %>
