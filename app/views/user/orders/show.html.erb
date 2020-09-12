@@ -18,11 +18,21 @@
   </table>
 </section>
 
-<h1 align = "center">Order Info</h1>
+<h1 align = "center">Order #<%= @order.id %></h1>
+<div class="order_info">
+  <ul>
+    <li>Order Creation: <%= @order.created_at.strftime("%m/%d/%y") %></li>
+    <li>Order Update: <%= @order.updated_at.strftime("%m/%d/%y") %></li>
+    <li>Current Status: <%= @order.order_status %></li>
+    <li>Total Quantity: <%= @order.total_quantity %></li>
+  </ul>
+</div>
 <center>
   <table>
     <tr>
       <th>Item</th>
+      <th>Image</th>
+      <th>Description</th>
       <th>Sold By</th>
       <th>Price</th>
       <th>Quantity</th>
@@ -32,6 +42,8 @@
     <tr>
       <section id = "item-<%=item_order.item_id%>">
         <td><p><%=link_to item_order.item.name, "/items/#{item_order.item_id}"%></p></td>
+        <td><p><%=image_tag item_order.item.image %></p></td>
+        <td><p><%= item_order.item.description %></p></td>
         <td><p><%= link_to item_order.item.merchant.name, "/merchants/#{item_order.item.merchant.id}"%></p></td>
         <td><p><%= number_to_currency(item_order.price)%></p></td>
         <td><p><%= item_order.quantity%></p></td>

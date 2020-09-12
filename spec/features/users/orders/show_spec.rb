@@ -20,6 +20,7 @@ RSpec.describe "User Orders Show Page" do
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
       @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @order_1.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3)
     end
 
   it "I see every order I've made including the orders information" do
@@ -40,15 +41,7 @@ RSpec.describe "User Orders Show Page" do
 
     expect(current_path).to eq("/profile/orders/#{@order_1.id}")
 
-    within '.shipping-address' do
-      expect(page).to have_content(name)
-      expect(page).to have_content(address)
-      expect(page).to have_content(city)
-      expect(page).to have_content(state)
-      expect(page).to have_content(zip)
-    end
-
-    expect(page).to have_link("Order ##{@order_1.id}")
+    expect(page).to have_content("Order ##{@order_1.id}")
     within ".order_info" do
       expect(page).to have_content("Order Creation: #{@order_1.created_at.strftime("%m/%d/%y")}")
       expect(page).to have_content("Order Update: #{@order_1.updated_at.strftime("%m/%d/%y")}")
@@ -56,14 +49,14 @@ RSpec.describe "User Orders Show Page" do
       expect(page).to have_content("Total Quantity: #{@order_1.total_quantity}")
     end
 
-    within "#item-#{@paper.id}" do
-      expect(page).to have_link(@paper.name)
-      expect(page).to have_css("img[src*='#{@paper.image}']")
-      expect(page).to have_content(@paper.description)
-      expect(page).to have_link("#{@paper.merchant.name}")
-      expect(page).to have_content("$#{@paper.price}")
-      expect(page).to have_content("2")
-      expect(page).to have_content("$40")
+    within "#item-#{@pull_toy.id}" do
+      expect(page).to have_link(@pull_toy.name)
+      expect(page).to have_css("img[src*='#{@pull_toy.image}']")
+      expect(page).to have_content(@pull_toy.description)
+      expect(page).to have_link("#{@pull_toy.merchant.name}")
+      expect(page).to have_content("$#{@pull_toy.price}")
+      expect(page).to have_content("3")
+      expect(page).to have_content("$30")
     end
 
     within "#item-#{@tire.id}" do
@@ -72,18 +65,18 @@ RSpec.describe "User Orders Show Page" do
       expect(page).to have_content(@tire.description)
       expect(page).to have_link("#{@tire.merchant.name}")
       expect(page).to have_content("$#{@tire.price}")
-      expect(page).to have_content("1")
-      expect(page).to have_content("$100")
+      expect(page).to have_content("2")
+      expect(page).to have_content("$200")
     end
 
-    within "#item-#{@pencil.id}" do
-      expect(page).to have_link(@pencil.name)
-      expect(page).to have_css("img[src*='#{@pencil.image}']")
-      expect(page).to have_content(@pencil.description)
-      expect(page).to have_link("#{@pencil.merchant.name}")
-      expect(page).to have_content("$#{@pencil.price}")
-      expect(page).to have_content("1")
-      expect(page).to have_content("$2")
+    within "#item-#{@dog_bone.id}" do
+      expect(page).to have_link(@dog_bone.name)
+      expect(page).to have_css("img[src*='#{@dog_bone.image}']")
+      expect(page).to have_content(@dog_bone.description)
+      expect(page).to have_link("#{@dog_bone.merchant.name}")
+      expect(page).to have_content("$#{@dog_bone.price}")
+      expect(page).to have_content("3")
+      expect(page).to have_content("$60")
     end
   end
 
