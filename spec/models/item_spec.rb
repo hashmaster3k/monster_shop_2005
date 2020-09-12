@@ -27,6 +27,15 @@ describe Item, type: :model do
       @review_3 = @chain.reviews.create(title: "Meh place", content: "They have meh bike stuff and I probably won't come back", rating: 1)
       @review_4 = @chain.reviews.create(title: "Not too impressed", content: "v basic bike shop", rating: 2)
       @review_5 = @chain.reviews.create(title: "Okay place :/", content: "Brian's cool and all but just an okay selection of items", rating: 3)
+
+      @user = User.create!(name: 'Billy Joel',
+                          address: '123 Song St.',
+                          city: 'Las Vegas',
+                          state: 'NV',
+                          zip: '12345',
+                          email: 'billy_j@user.com',
+                          password: '123',
+                          role: 0)
     end
 
     it "calculate average review" do
@@ -43,7 +52,7 @@ describe Item, type: :model do
 
     it 'no orders' do
       expect(@chain.no_orders?).to eq(true)
-      order = Order.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
+      order = @user.orders.create(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
       order.item_orders.create(item: @chain, price: @chain.price, quantity: 2)
       expect(@chain.no_orders?).to eq(false)
     end

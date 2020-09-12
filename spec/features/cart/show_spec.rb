@@ -55,6 +55,79 @@ RSpec.describe 'Cart show' do
 
         expect(page).to have_content("Total: $124")
       end
+
+      it 'has buttons to increase or decrease quantity of item' do
+        visit '/cart'
+
+        visit "/items/#{@tire.id}"
+        click_on "Add To Cart"
+
+        visit '/cart'
+        @items_in_cart.each do |item|
+          within "#cart-item-#{item.id}" do
+            expect(page).to have_button("+")
+          end
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          expect(page).to have_button("+")
+          expect(page).to have_button("-")
+        end
+
+      end
+
+      it 'can increment item in cart' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          11.times do
+            click_button("+")
+          end
+          expect(page).to have_content("12")
+          expect(page).to_not have_button("+")
+        end
+      end
+
+      it 'can decrement item in cart' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("+")
+          end
+          within "#quantity-#{@tire.id}" do
+            expect(page).to have_content("2")
+          end
+        end
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("-")
+          end
+
+          within "#quantity-#{@tire.id}" do
+            expect(page).to have_content("1")
+          end
+        end
+      end
+
+      it 'removes item from cart when decrementing quanity of 1' do
+        visit '/cart'
+
+        within "#cart-item-#{@tire.id}" do
+          1.times do
+            click_button("-")
+          end
+        end
+        expect(page).to_not have_content(@tire.name)
+      end
+      it "can see info telling me I must register or log in to finish checking out" do
+        visit '/cart'
+        expect(page).to_not have_link("Checkout")
+        expect(page).to have_content("You must register or log in to finish the checkout process")
+        expect(page).to have_link("register")
+        expect(page).to have_link("log in")
+      end
     end
   end
   describe "When I haven't added anything to my cart" do
