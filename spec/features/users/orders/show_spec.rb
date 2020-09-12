@@ -18,9 +18,9 @@ RSpec.describe "User Orders Show Page" do
       @dog_bone = @brian.items.create(name: "Dog Bone", description: "They'll love it!", price: 20, image: "https://img.chewy.com/is/image/catalog/54226_MAIN._AC_SL1500_V1534449573_.jpg", active?:false, inventory: 21)
 
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
-      @order_1.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3)
+      @io1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @io2 = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @io3 = @order_1.item_orders.create!(item: @dog_bone, price: @dog_bone.price, quantity: 3)
 
       visit "/login"
 
@@ -106,6 +106,17 @@ RSpec.describe "User Orders Show Page" do
 
     within "#item-#{@dog_bone.id}" do
       expect(page).to have_content("unfulfilled")
+    end
+  end
+  it "order status changes to packaged when items fulfilled" do
+    @io1.order_status = "fulfilled"
+    @io2.order_status = "fulfilled"
+    @io3.order_status = "fulfilled"
+
+    visit "/profile/orders/#{@order_1.id}"
+
+    within ".order_info" do
+      expect(page).to have_content("Current Status:\npackaged\n")
     end
   end
 

@@ -25,7 +25,7 @@
     <li>Order Update: <%= @order.updated_at.strftime("%m/%d/%y") %></li>
     <% if @order.order_status == "pending" %>
       <li>Current Status: <%= @order.order_status %></li>
-    <% elsif @order.order_status == "cancelled" %>
+    <% else %>
       <li>Current Status: <h2><%= @order.order_status %></h2></li>
     <% end %>
     <li>Total Quantity: <%= @order.total_quantity %></li>
