@@ -34,8 +34,8 @@ describe Order, type: :model do
 
       @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'PA', zip: 17033)
 
-      @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
-      @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
+      @io1 = @order_1.item_orders.create!(item: @tire, price: @tire.price, quantity: 2)
+      @io2 = @order_1.item_orders.create!(item: @pull_toy, price: @pull_toy.price, quantity: 3)
     end
 
     it 'grandtotal' do
@@ -49,6 +49,13 @@ describe Order, type: :model do
     it "change_status_cancel" do
       @order_1.change_status_cancel
       expect(@order_1.order_status).to eq("cancelled")
+    end
+
+    it 'current_order_status' do
+      @io1.update_attribute(:order_status, "fulfilled")
+      @io2.update_attribute(:order_status, "fulfilled")
+      @order_1.current_order_status
+      expect(@order_1.order_status).to eq('packaged')
     end
   end
 end

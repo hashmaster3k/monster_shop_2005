@@ -109,9 +109,9 @@ RSpec.describe "User Orders Show Page" do
     end
   end
   it "order status changes to packaged when items fulfilled" do
-    @io1.order_status = "fulfilled"
-    @io2.order_status = "fulfilled"
-    @io3.order_status = "fulfilled"
+    @io1.update_attribute(:order_status, "fulfilled")
+    @io2.update_attribute(:order_status, "fulfilled")
+    @io3.update_attribute(:order_status, "fulfilled")
 
     visit "/profile/orders/#{@order_1.id}"
 
