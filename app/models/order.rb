@@ -20,6 +20,8 @@ class Order <ApplicationRecord
   def current_order_status
     if item_orders.where(order_status: 'fulfilled').count == item_orders.count
       update_attribute(:order_status, 'packaged')
+    else
+      order_status
     end
   end
 end
