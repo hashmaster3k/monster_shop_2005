@@ -30,7 +30,7 @@
     <% end %>
     <li>Total Quantity: <%= @order.total_quantity %></li>
   </ul>
-  <% if @order.current_order_status == "pending" %>
+  <% if @order.order_status == "pending" %>
     <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %></p>
   <% end %>
 </div>
