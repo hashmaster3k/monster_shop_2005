@@ -8,4 +8,12 @@ class Order <ApplicationRecord
   def grandtotal
     item_orders.sum('price * quantity')
   end
+
+  def total_quantity
+    item_orders.sum(:quantity)
+  end
+
+  def change_status_cancel
+    update_attribute(:order_status, "cancelled")
+  end
 end

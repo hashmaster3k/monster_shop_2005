@@ -88,5 +88,9 @@ describe Item, type: :model do
       @tire.update_quantity_purchased(3)
       expect(@tire.quantity_purchased).to eq(8)
     end
+
+    it "can return cancelled items back to merchant" do
+      
+    end
   end
 end
