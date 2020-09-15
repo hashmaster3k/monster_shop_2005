@@ -1,0 +1,33 @@
+<div class="admin-orders">
+<% @packaged_orders.each do |pack| %>
+  <div id="packaged-<%=pack.id%>">
+  <%= link_to pack.user.name, "/admin/users/#{pack.user_id}" %>
+  <%= pack.id %>
+  <%= pack.created_at %>
+  </div>
+<% end %>
+
+<% @pending_orders.each do |pend| %>
+  <div id="pending-<%=pend.id%>">
+  <%= link_to pend.user.name, "/admin/users/#{pend.user_id}" %>
+  <%= pend.id %>
+  <%= pend.created_at %>
+  </div>
+<% end %>
+
+<% @shipped_orders.each do |shipp| %>
+  <div id="shipped-<%=shipp.id%>">
+  <%= link_to shipp.user.name, "/admin/users/#{shipp.user_id}" %>
+  <%= shipp.id %>
+  <%= shipp.created_at %>
+  </div>
+<% end %>
+
+<% @cancelled_orders.each do |cancelled| %>
+  <div id="cancelled-<%=cancelled.id%>">
+  <%= link_to cancelled.user.name, "/admin/users/#{cancelled.user_id}" %>
+  <%= cancelled.id %>
+  <%= cancelled.created_at %>
+  </div>
+<% end %>
+</div>
