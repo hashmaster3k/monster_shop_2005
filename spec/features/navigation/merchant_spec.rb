@@ -4,6 +4,9 @@ RSpec.describe 'merchant navigation' do
 
   describe 'merchant nav bar approved pathways' do
     it 'includes links: return to welcome page, browse all items, see all merchants, my shopping cart, log in, user registration page, and profile page' do
+
+      @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
       @merchant = User.create!(name: 'Joel Billy',
                               address: '125 Song St.',
                               city: 'Las Vegas',
@@ -11,6 +14,7 @@ RSpec.describe 'merchant navigation' do
                               zip: '12345',
                               email: 'billy_j@merchant.com',
                               password: '123',
+                              merchant_id: @bike_shop.id,
                               role: 1)
 
       visit '/login'
@@ -37,6 +41,8 @@ RSpec.describe 'merchant navigation' do
 
   describe 'merchant restricted pathways' do
     it 'merchant cannot access pathways designated for admins' do
+      @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
       @merchant = User.create!(name: 'Joel Billy',
                               address: '125 Song St.',
                               city: 'Las Vegas',
@@ -44,6 +50,7 @@ RSpec.describe 'merchant navigation' do
                               zip: '12345',
                               email: 'billy_j@merchant.com',
                               password: '123',
+                              merchant_id: @bike_shop.id,
                               role: 1)
 
       visit '/login'
