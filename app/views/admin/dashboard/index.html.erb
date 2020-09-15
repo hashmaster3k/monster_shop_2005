@@ -5,6 +5,7 @@
   <%= link_to pack.user.name, "/admin/users/#{pack.user_id}" %>
   <%= pack.id %>
   <%= pack.created_at %>
+  <%= button_to "Ship This Order", "/admin/orders/#{pack.id}/update" %>
   </div>
 <% end %>
 <hr>

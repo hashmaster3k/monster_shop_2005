@@ -64,4 +64,30 @@ RSpec.describe 'Admin dashboard' do
     end
   end
 
+  it 'can see any packaged orders and a button to ship the order. The status changes to shipped when the ship button is clicked and the user can no longer cancel the order' do
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    visit "/profile/orders/#{@order_3.id}"
+    expect(page).to have_button("Cancel Order")
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@admin)
+    visit '/admin'
+
+    within "#packaged-#{@order_3.id}" do
+      expect(page).to have_content(@order_3.id)
+      expect(page).to have_button("Ship This Order")
+      click_button "Ship This Order"
+    end
+
+    expect(current_path).to eq('/admin')
+
+    within "#shipped-#{@order_3.id}" do
+      expect(page).to have_content(@order_3.id)
+    end
+
+    allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(@user)
+    visit "/profile/orders/#{@order_3.id}"
+    # save_and_open_page
+    expect(page).to_not have_button("Cancel Order")
+  end
+
 end

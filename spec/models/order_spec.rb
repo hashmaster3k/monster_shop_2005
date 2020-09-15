@@ -51,10 +51,10 @@ describe Order, type: :model do
       expect(@order_1.order_status).to eq("cancelled")
     end
 
-    it 'current_order_status' do
+    it 'change_status_packaged' do
       @io1.update_attribute(:order_status, "fulfilled")
       @io2.update_attribute(:order_status, "fulfilled")
-      @order_1.current_order_status
+      @order_1.change_status_packaged
       expect(@order_1.order_status).to eq('packaged')
     end
   end

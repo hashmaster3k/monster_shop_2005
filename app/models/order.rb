@@ -17,11 +17,9 @@ class Order <ApplicationRecord
     update_attribute(:order_status, "cancelled")
   end
 
-  def current_order_status
+  def change_status_packaged
     if item_orders.where(order_status: 'fulfilled').count == item_orders.count
       update_attribute(:order_status, 'packaged')
-    else
-      order_status
     end
   end
 end
