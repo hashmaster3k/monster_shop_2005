@@ -23,10 +23,11 @@
         <%= link_to "My Profile", '/profile' %>
         <%= link_to "Dashboard", '/admin/dashboard' %>
         <%= link_to "All Users", '/admin/users' %>
-      <% elsif current_user %>
+      <% elsif current_user? %>
         <%= link_to "Log out", '/logout' %>
         <%= link_to "My Profile", '/profile' %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+        <%= link_to "My Orders", "/profile/orders" %>
       <% else %>
         <%= link_to "Log in", "/login" %>
         <%= link_to "Register", '/register' %>
