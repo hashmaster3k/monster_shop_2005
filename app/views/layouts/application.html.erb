@@ -18,6 +18,7 @@
         <%= link_to "My Profile", '/profile' %>
         <%= link_to "Dashboard", '/merchant/dashboard' %>
         <%= link_to "Cart: #{cart.total_items}", "/cart" %>
+        <%= link_to "Items", "/merchant/items" %>
       <% elsif current_admin? %>
         <%= link_to "Log out", '/logout' %>
         <%= link_to "My Profile", '/profile' %>
