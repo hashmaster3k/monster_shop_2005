@@ -15,6 +15,7 @@ RSpec.describe 'Admin dashboard' do
                           email: 'billy_j@user.com',
                           password: '123',
                           role: 0)
+                           
     @admin = User.create!(name: 'Chilly Billy',
                           address: '125 Song St.',
                           city: 'Las Vegas',
@@ -31,6 +32,7 @@ RSpec.describe 'Admin dashboard' do
     @order_5 = @user.orders.create!(name: 'Ty', address: '123 Stang Ave', city: 'Hershey', state: 'MI', zip: 17033)
 
     @orders = Order.all
+
     visit '/login'
 
     fill_in :email, with: @admin.email
