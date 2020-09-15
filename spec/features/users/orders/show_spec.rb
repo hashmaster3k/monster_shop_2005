@@ -93,7 +93,7 @@ RSpec.describe "User Orders Show Page" do
     expect(page).to have_content("Your order is now cancelled")
 
     within ".order_info" do
-      expect(page).to have_content("Current Status:\ncancelled\n")
+      expect(page).to have_content("Current Status: cancelled")
     end
 
     within "#item-#{@pull_toy.id}" do
@@ -109,14 +109,14 @@ RSpec.describe "User Orders Show Page" do
     end
   end
   it "order status changes to packaged when items fulfilled" do
-    @io1.order_status = "fulfilled"
-    @io2.order_status = "fulfilled"
-    @io3.order_status = "fulfilled"
+    @io1.update_attribute(:order_status, "fulfilled")
+    @io2.update_attribute(:order_status, "fulfilled")
+    @io3.update_attribute(:order_status, "fulfilled")
 
+    @order_1.change_status_packaged
     visit "/profile/orders/#{@order_1.id}"
-
     within ".order_info" do
-      expect(page).to have_content("Current Status:\npackaged\n")
+      expect(page).to have_content("Current Status: packaged")
     end
   end
 

@@ -23,14 +23,10 @@
   <ul>
     <li>Order Creation: <%= @order.created_at.strftime("%m/%d/%y") %></li>
     <li>Order Update: <%= @order.updated_at.strftime("%m/%d/%y") %></li>
-    <% if @order.order_status == "pending" %>
-      <li>Current Status: <%= @order.order_status %></li>
-    <% else %>
-      <li>Current Status: <h2><%= @order.order_status %></h2></li>
-    <% end %>
+    <li>Current Status: <%= @order.order_status %></li>
     <li>Total Quantity: <%= @order.total_quantity %></li>
   </ul>
-  <% if @order.order_status == "pending" %>
+  <% if @order.order_status == "pending" ||  @order.order_status == "packaged"%>
     <p><%= button_to "Cancel Order", "/profile/orders/#{@order.id}", method: :delete %></p>
   <% end %>
 </div>
