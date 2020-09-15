@@ -1,0 +1,16 @@
+<h1>Admin Dashboard for <%= @merchant.name %></h1>
+<p><%= @merchant.address %></p>
+<p><%= @merchant.city %>, <%= @merchant.state %> <%= @merchant.zip %></p>
+
+
+<h2>Pending Orders:</h2>
+<% @orders.each do |order| %>
+<div id="orders-<%= order.id %>">
+  <ul>
+    <li>Order ID: <%= order.id %></li>
+    <li>Order Date: <%= order.created_at %></li>
+    <li>Total Quantity: <%= order.total_quantity %></li>
+    <li>Total Value: <%= order.grandtotal %></li>
+  </ul>
+</div>
+<% end %>
