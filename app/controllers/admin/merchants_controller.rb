@@ -12,6 +12,7 @@ class Admin::MerchantsController < Admin::BaseController
     merchant = Merchant.find(params[:id])
     if merchant.status == "enabled"
       merchant.update_attribute(:status, "disabled")
+      merchant.disable_all_items
       flash[:success] = "#{merchant.name} is now disabled"
     else
       merchant.update_attribute(:status, "enabled")
