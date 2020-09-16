@@ -2,6 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'NEW SESSION' do
   before :each do
+    @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+
     @user = User.create!(name: 'Billy Joel',
                         address: '123 Song St.',
                         city: 'Las Vegas',
@@ -18,6 +20,7 @@ RSpec.describe 'NEW SESSION' do
                             zip: '12345',
                             email: 'billy_j@merchant.com',
                             password: '123',
+                            merchant_id: @bike_shop.id,
                             role: 1)
 
     @admin = User.create!(name: 'Chilly Billy',
