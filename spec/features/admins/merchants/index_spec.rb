@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Admins merchant index page' do
   before :each do
   @print_shop = Merchant.create(name: "Mike's Print Shop", address: '123 Paper Rd.', city: 'Denver', state: 'CO', zip: 80203)
-  @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+  @bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203, status: "disabled")
   @admin = User.create!(name: 'Chilly Billy',
                         address: '125 Song St.',
                         city: 'Las Vegas',
@@ -36,6 +36,25 @@ RSpec.describe 'Admins merchant index page' do
     within "#merchant-#{@print_shop.id}" do
       expect(page).to_not have_button("disable")
       expect(page).to have_content("disabled")
+    end
+  end
+
+  it "can see an enable button next to any merchants who are disabled" do
+    visit '/admin/merchants'
+
+    expect(page).to have_button("enable")
+
+    within "#merchant-#{@bike_shop.id}" do
+      expect(page).to have_content("enabled")
+      click_button "enable"
+    end
+
+    expect(current_path).to eq("/admin/merchants")
+    expect(page).to have_content("#{@bike_shop.name} is now enabled")
+
+    within "#merchant-#{@bike_shop.id}" do
+      expect(page).to_not have_button("enable")
+      expect(page).to have_content("enabled")
     end
   end
 end

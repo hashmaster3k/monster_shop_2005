@@ -3,9 +3,9 @@
     <%= merchant.name %>
     <%= merchant.status %>
     <% if merchant.status == "enabled" %>
-      <%= button_to "disable", "/admin/merchants", method: :patch %>
+      <%= button_to "disable", "/admin/merchants/#{merchant.id}", method: :patch %>
     <% else %>
-      <%= button_to "enable", "/admin/merchants" %>
+      <%= button_to "enable", "/admin/merchants/#{merchant.id}", method: :patch %>
     <% end %>
   </div>
 <% end %>

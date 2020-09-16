@@ -7,4 +7,16 @@ class Admin::MerchantsController < Admin::BaseController
   def index
     @merchants = Merchant.all
   end
+
+  def update
+    merchant = Merchant.find(params[:id])
+    if merchant.status == "enabled"
+      merchant.update_attribute(:status, "disabled")
+      flash[:success] = "#{merchant.name} is now disabled"
+    else
+      merchant.update_attribute(:status, "enabled")
+      flash[:success] = "#{merchant.name} is now enabled"
+    end
+    redirect_to '/admin/merchants'
+  end
 end
