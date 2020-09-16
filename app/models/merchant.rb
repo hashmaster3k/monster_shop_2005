@@ -26,4 +26,16 @@ class Merchant <ApplicationRecord
     item_orders.distinct.joins(:order).pluck(:city)
   end
 
+  def disable_all_items
+    # Item.where(merchant_id: self.id).update_all(active?: false) #the question mark != creamy
+    items.each do |item|
+      item.update_attribute(:active?, false)
+    end
+  end
+
+  def enable_all_items
+    items.each do |item|
+      item.update_attribute(:active?, true)
+    end
+  end
 end
