@@ -64,5 +64,6 @@ Rails.application.routes.draw do
     post '/orders/:order_id/update', to: 'orders#update'
     get '/merchants/:id', to: 'merchants#show'
     get '/merchants', to: 'merchants#index'
+    patch '/merchants/:id', to: 'merchants#update'
   end
 end
