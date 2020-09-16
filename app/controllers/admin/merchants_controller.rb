@@ -3,4 +3,8 @@ class Admin::MerchantsController < Admin::BaseController
     @merchant = Merchant.find(params[:id])
     @orders = @merchant.orders.distinct
   end
+
+  def index
+
+  end
 end
