@@ -67,5 +67,12 @@ describe Merchant, type: :model do
       @meg.disable_all_items
       expect(@tire.active?).to eq(false)
     end
+
+    it "enable_all_items" do
+      @meg.disable_all_items
+      expect(@tire.active?).to eq(false)
+      @meg.enable_all_items
+      expect(@tire.active?).to eq(true)
+    end
   end
 end

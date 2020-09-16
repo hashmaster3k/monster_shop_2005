@@ -13,7 +13,7 @@ RSpec.describe 'Admins merchant index page' do
                         password: '123',
                         role: 2)
 
-    @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12)
+    @tire = @bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12, active?: false)
     @paper = @print_shop.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
     @pencil = @print_shop.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
@@ -74,6 +74,22 @@ RSpec.describe 'Admins merchant index page' do
 
     expect(page).to_not have_content(@paper.name)
     expect(page).to_not have_content(@pencil.name)
+  end
+
+  it "I click on the disable button for an enabled merchant, then all of that merchants items should be deactivated" do
+    visit '/items'
+
+    expect(page).to_not have_content(@tire.name)
+    
+    visit '/admin/merchants'
+
+    within "#merchant-#{@bike_shop.id}" do
+      click_button "enable"
+    end
+
+    visit "/items"
+
+    expect(page).to have_content(@tire.name)
   end
 end
 # As an admin
