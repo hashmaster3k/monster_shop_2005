@@ -5,6 +5,6 @@ class Admin::MerchantsController < Admin::BaseController
   end
 
   def index
-
+    @merchants = Merchant.all
   end
 end
