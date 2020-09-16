@@ -80,7 +80,7 @@ RSpec.describe 'Admins merchant index page' do
     visit '/items'
 
     expect(page).to_not have_content(@tire.name)
-    
+
     visit '/admin/merchants'
 
     within "#merchant-#{@bike_shop.id}" do
@@ -92,7 +92,3 @@ RSpec.describe 'Admins merchant index page' do
     expect(page).to have_content(@tire.name)
   end
 end
-# As an admin
-# When I visit the merchant index page
-# And I click on the "disable" button for an enabled merchant
-# Then all of that merchant's items should be deactivated
