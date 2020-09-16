@@ -33,4 +33,56 @@ RSpec.describe 'Merchant dashboard items index' do
 
     expect(current_path).to eq("/merchant/items")
   end
+
+  it "I can see all of my items and their info as well as a link to deactivate/activate that item" do
+    click_link "Items"
+
+    within "#item-#{@paper.id}" do
+      expect(page).to have_content(@paper.name)
+      expect(page).to have_content(@paper.description)
+      expect(page).to have_content(@paper.price)
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_content("active")
+      expect(page).to have_content(@paper.inventory)
+      expect(page).to have_link("deactivate")
+      click_link "deactivate"
+    end
+    
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{@paper.name} is no longer for sale.")
+
+    within "#item-#{@pencil.id}" do
+      expect(page).to have_content(@pencil.name)
+      expect(page).to have_content(@pencil.description)
+      expect(page).to have_content(@pencil.price)
+      expect(page).to have_css("img[src*='#{@pencil.image}']")
+      expect(page).to have_content("active")
+      expect(page).to have_content(@pencil.inventory)
+      expect(page).to have_link("deactivate")
+    end
+
+    within "#item-#{@paper.id}" do
+      expect(page).to have_content(@paper.name)
+      expect(page).to have_content(@paper.description)
+      expect(page).to have_content(@paper.price)
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_content("inactive")
+      expect(page).to have_content(@paper.inventory)
+      expect(page).to have_link("activate")
+      click_link "activate"
+    end
+
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{@paper.name} is now available for sale.")
+
+    within "#item-#{@paper.id}" do
+      expect(page).to have_content(@paper.name)
+      expect(page).to have_content(@paper.description)
+      expect(page).to have_content(@paper.price)
+      expect(page).to have_css("img[src*='#{@paper.image}']")
+      expect(page).to have_content("active")
+      expect(page).to have_content(@paper.inventory)
+      expect(page).to have_link("deactivate")
+    end
+  end
 end

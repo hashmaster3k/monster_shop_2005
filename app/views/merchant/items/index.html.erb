@@ -1,0 +1,14 @@
+<h1>Items</h1>
+<% @items.each do |item| %>
+  <div id="item-<%= item.id %>">
+     <%= item.name %>
+     <%= item.description %>
+     <%= item.price %>
+     <%= image_tag item.image %>
+     <%= "active" if item.active? %>
+     <%= "inactive" if !item.active? %>
+     <%= item.inventory %>
+     <%= link_to "deactivate", "/merchant/items/#{item.id}", method: :patch if item.active? %>
+     <%= link_to "activate", "/merchant/items/#{item.id}", method: :patch if !item.active? %>
+  </div>
+<% end %>
