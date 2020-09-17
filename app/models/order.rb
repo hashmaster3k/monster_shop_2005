@@ -26,4 +26,12 @@ class Order <ApplicationRecord
   def merchant_items(merch_id)
     items.select("items.id, items.name, items.image, items.price, items.inventory, item_orders.order_status, item_orders.quantity, item_orders.id as io_id").joins(:item_orders).where(merchant_id: merch_id)
   end
+
+  def return_item_quantities
+    Item.all.each do |item|
+      qr = ItemOrder.where(item_id: item.id).first
+      item.inventory += qr.quantity
+      item.save
+    end
+  end
 end
