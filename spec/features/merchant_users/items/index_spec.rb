@@ -7,6 +7,15 @@ RSpec.describe 'Merchant dashboard items index' do
     @paper = @print_shop.items.create(name: "Lined Paper", description: "Great for writing on!", price: 20, image: "https://cdn.vertex42.com/WordTemplates/images/printable-lined-paper-wide-ruled.png", inventory: 3)
     @pencil = @print_shop.items.create(name: "Yellow Pencil", description: "You can write on paper with it!", price: 2, image: "https://images-na.ssl-images-amazon.com/images/I/31BlVr01izL._SX425_.jpg", inventory: 100)
 
+    @user = User.create!(name: 'Billy Joel',
+                          address: '123 Song St.',
+                          city: 'Las Vegas',
+                          state: 'NV',
+                          zip: '12345',
+                          email: 'billy_j@user.com',
+                          password: '123',
+                          role: 0)
+
     @merchant = User.create!(name: 'Joel Billy',
       address: '125 Song St.',
       city: 'Las Vegas',
@@ -16,6 +25,10 @@ RSpec.describe 'Merchant dashboard items index' do
       merchant_id: @print_shop.id,
       password: '123',
       role: 1)
+
+    @order_1 = @user.orders.create!(name: 'Meg', address: '123 Stang Ave', city: 'Hershey', state: 'CO', zip: 17033)
+
+    ItemOrder.create(item_id: @paper.id , order_id: @order_1.id, price: @paper.price, quantity: 1)
 
     visit '/login'
 
@@ -47,7 +60,7 @@ RSpec.describe 'Merchant dashboard items index' do
       expect(page).to have_link("deactivate")
       click_link "deactivate"
     end
-    
+
     expect(current_path).to eq("/merchant/items")
     expect(page).to have_content("#{@paper.name} is no longer for sale.")
 
@@ -84,5 +97,22 @@ RSpec.describe 'Merchant dashboard items index' do
       expect(page).to have_content(@paper.inventory)
       expect(page).to have_link("deactivate")
     end
+  end
+
+  it "I can delete an item from my index page only if the item doesnt have orders on it" do
+    click_link "Items"
+
+    within "#item-#{@paper.id}" do
+      expect(page).to_not have_link("delete")
+    end
+
+    within "#item-#{@pencil.id}" do
+      expect(page).to have_link("delete")
+      click_link "delete"
+    end
+
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{@pencil.name} has been successfully deleted.")
+    expect(page).to_not have_css("img[src*='#{@pencil.image}']")
   end
 end

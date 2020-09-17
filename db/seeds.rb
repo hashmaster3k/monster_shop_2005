@@ -6,11 +6,16 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 
+#merchants
+bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
 #user/merchant/admin
-@user = User.create!(name: 'Billy Joel',
+user = User.create!(name: 'Billy Joel',
                     address: '123 Song St.',
                     city: 'Las Vegas',
                     state: 'NV',
@@ -19,16 +24,17 @@ Item.destroy_all
                     password: '123',
                     role: 0)
 
-@merchant = User.create!(name: 'Joel Billy',
+merchant = User.create!(name: 'Joel Billy',
                         address: '125 Song St.',
                         city: 'Las Vegas',
                         state: 'NV',
                         zip: '12345',
                         email: 'merchant',
                         password: '123',
+                        merchant_id: bike_shop.id,
                         role: 1)
 
-@admin = User.create!(name: 'Chilly Billy',
+admin = User.create!(name: 'Chilly Billy',
                       address: '125 Song St.',
                       city: 'Las Vegas',
                       state: 'NV',
@@ -37,9 +43,6 @@ Item.destroy_all
                       password: '123',
                       role: 2)
 
-#merchants
-bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12, quantity_purchased: 0)

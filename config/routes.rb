@@ -56,6 +56,7 @@ Rails.application.routes.draw do
     get '/dashboard', to: 'dashboard#index'
     get '/items', to: 'items#index'
     patch '/items/:id', to: 'items#update'
+    delete '/items/:id', to: 'items#destroy'
   end
 
   namespace :admin do
