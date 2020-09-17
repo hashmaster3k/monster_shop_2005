@@ -12,4 +12,5 @@
      <%= link_to "activate", "/merchant/items/#{item.id}", method: :patch if !item.active? %>
      <%= link_to "delete", "/merchant/items/#{item.id}", method: :delete if item.no_orders? %>
   </div>
-<% end %>
+<% end %><br>
+<%= link_to "Add New Item", "/merchant/items/new", method: :get %>

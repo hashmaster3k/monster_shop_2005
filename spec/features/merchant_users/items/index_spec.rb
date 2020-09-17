@@ -115,4 +115,35 @@ RSpec.describe 'Merchant dashboard items index' do
     expect(page).to have_content("#{@pencil.name} has been successfully deleted.")
     expect(page).to_not have_css("img[src*='#{@pencil.image}']")
   end
+
+  it "I see a link to add a new item to my index page" do
+    click_link "Items"
+
+    expect(page).to have_link("Add New Item")
+
+    click_link "Add New Item"
+
+    expect(current_path).to eq("/merchant/items/new")
+
+    fill_in :name, with: 'Cream'
+    fill_in :description, with: 'description'
+    fill_in :image, with: ''
+    fill_in :price, with: '1.00'
+    fill_in :inventory, with: '3'
+
+    click_button "Create New Item"
+
+    new_item = @print_shop.items.last
+
+    expect(current_path).to eq("/merchant/items")
+    expect(page).to have_content("#{new_item.name} has been added to your items.")
+
+    within "#item-#{new_item.id}"do
+      expect(page).to have_content("Cream")
+      expect(page).to have_content("description")
+      expect(page).to have_content("1")
+      expect(page).to have_content("3")
+      expect(page).to have_content("active")
+    end
+  end
 end
