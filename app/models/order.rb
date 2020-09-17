@@ -28,8 +28,8 @@ class Order <ApplicationRecord
   end
 
   def return_item_quantities
-    Item.all.each do |item|
-      qr = ItemOrder.where(item_id: item.id).first
+    items.each do |item|
+      qr = ItemOrder.find_by(item_id: item.id)
       item.inventory += qr.quantity
       item.save
     end

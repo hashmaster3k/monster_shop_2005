@@ -69,5 +69,10 @@ describe Order, type: :model do
       expect(@order_1.merchant_items(@meg.id).first.quantity).to eq(@io1.quantity)
       expect(@order_1.merchant_items(@meg.id).first.io_id).to eq(@io1.id)
     end
+
+    it 'return_item_quantities' do
+      expect(@tire.inventory).to eq(12)
+      @order_1.return_item_quantities
+    end
   end
 end
