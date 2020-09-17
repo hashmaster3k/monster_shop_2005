@@ -156,3 +156,14 @@ td, th {
 tr:nth-child(even) {
   background-color: #F0F8FF;
 }
+
+.item-image {
+  width: 150px;
+  height: 100px;
+}
+
+#main-image {
+  text-align: center;
+  width: 100%;
+  height: auto;
+}

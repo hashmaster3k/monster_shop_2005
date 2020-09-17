@@ -57,5 +57,17 @@ describe Order, type: :model do
       @order_1.change_status_packaged
       expect(@order_1.order_status).to eq('packaged')
     end
+
+    it 'merchant_items' do
+      expect(@order_1.merchant_items(@meg.id).length).to eq(1)
+      expect(@order_1.merchant_items(@meg.id).first.id).to eq(@tire.id)
+      expect(@order_1.merchant_items(@meg.id).first.name).to eq(@tire.name)
+      expect(@order_1.merchant_items(@meg.id).first.image).to eq(@tire.image)
+      expect(@order_1.merchant_items(@meg.id).first.price).to eq(@tire.price)
+      expect(@order_1.merchant_items(@meg.id).first.inventory).to eq(@tire.inventory)
+      expect(@order_1.merchant_items(@meg.id).first.order_status).to eq(@io1.order_status)
+      expect(@order_1.merchant_items(@meg.id).first.quantity).to eq(@io1.quantity)
+      expect(@order_1.merchant_items(@meg.id).first.io_id).to eq(@io1.id)
+    end
   end
 end

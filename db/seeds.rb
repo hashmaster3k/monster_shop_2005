@@ -33,7 +33,7 @@ merchant = User.create!(name: 'Joel Billy',
                         password: '123',
                         merchant_id: bike_shop.id,
                         role: 1)
-
+                        
 admin = User.create!(name: 'Chilly Billy',
                       address: '125 Song St.',
                       city: 'Las Vegas',
@@ -42,7 +42,6 @@ admin = User.create!(name: 'Chilly Billy',
                       email: 'admin',
                       password: '123',
                       role: 2)
-
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12, quantity_purchased: 0)

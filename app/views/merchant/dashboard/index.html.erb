@@ -7,7 +7,7 @@
 <% @orders.each do |order| %>
 <div id="orders-<%= order.id %>">
   <ul>
-    <li>Order ID: <%= order.id %></li>
+    <li>Order ID: <%= link_to order.id, "/merchant/orders/#{order.id}" %></li>
     <li>Order Date: <%= order.created_at %></li>
     <li>Total Quantity: <%= order.total_quantity %></li>
     <li>Total Value: <%= order.grandtotal %></li>
