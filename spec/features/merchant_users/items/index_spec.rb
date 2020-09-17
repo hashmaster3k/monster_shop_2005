@@ -146,4 +146,42 @@ RSpec.describe 'Merchant dashboard items index' do
       expect(page).to have_content("active")
     end
   end
+
+  it "Add a new item blank name sad path" do
+    visit '/merchant/items/new'
+
+    fill_in :name, with: ''
+    fill_in :description, with: 'description'
+    fill_in :image, with: ''
+    fill_in :price, with: '1.00'
+    fill_in :inventory, with: '0'
+
+    click_button "Create New Item"
+
+    expect(find_field('Name').value).to eq ''
+    expect(find_field('Description').value).to eq 'description'
+    expect(find_field('Price').value).to eq "1"
+    expect(find_field('Inventory').value).to eq("0")
+
+    expect(page).to have_content("Name can't be blank")
+  end
+
+  it "Add a new item less than zero inventory sad path" do
+    visit '/merchant/items/new'
+
+    fill_in :name, with: 'Creamy'
+    fill_in :description, with: 'description'
+    fill_in :image, with: ''
+    fill_in :price, with: '1.00'
+    fill_in :inventory, with: '-1'
+
+    click_button "Create New Item"
+
+    expect(find_field('Name').value).to eq 'Creamy'
+    expect(find_field('Description').value).to eq 'description'
+    expect(find_field('Price').value).to eq "1"
+    expect(find_field('Inventory').value).to eq "-1"
+
+    expect(page).to have_content("Inventory must be greater than or equal to 0")
+  end
 end
