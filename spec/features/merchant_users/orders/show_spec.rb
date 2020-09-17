@@ -64,5 +64,28 @@ RSpec.describe 'Merchant orders show page'do
       expect(page).to_not have_content(@tire.name)
       expect(page).to_not have_content(@tire.price)
     end
+
+    it 'can each items status and has a button to fulfill if item is unfulfilled' do
+      visit "/merchant/orders/#{@order_1.id}"
+
+      within "#item-#{@paper.id}" do
+        expect(page).to have_content(@io1.order_status)
+        expect(page).to have_button("Fulfill Order")
+      end
+
+      within "#item-#{@pencil.id}" do
+        expect(page).to have_content(@io2.order_status)
+        expect(page).to have_button("Fulfill Order")
+        click_button 'Fulfill Order'
+      end
+
+      expect(current_path).to eq("/merchant/orders/#{@order_1.id}")
+      expect(page).to have_content("Item is now fulfilled")
+
+      within "#item-#{@pencil.id}" do
+        expect(page).to have_content("Item status: fulfilled")
+        expect(page).to_not have_button("Fulfill Order")
+      end
+    end
   end
 end
