@@ -1,0 +1,24 @@
+<h1>Recipent Information</h1>
+<ul>
+  <li>Name: <%= @order.name %></li>
+  <li>Address: <%= @order.address %></li>
+</ul>
+
+<h1>My items for order <%= @order.id %> </h1>
+<% @order.merchant_items(current_user.merchant_id).each do |item| %>
+  <div id="item-<%= item.id %>">
+    <%= image_tag item.image, class: 'item-image' %><br><br>
+    Item name: <%= link_to item.name, "/merchant/orders/#{@order.id}/items/#{item.id}" %><br>
+    Item price: $<%= item.price %><br>
+    Item quantity: <%= item.quantity %><br>
+    Item status: <%= item.order_status %>
+
+    <% if item.quantity <= item.inventory && item.order_status == 'unfulfilled'%>
+      <%= button_to 'Fulfill Order', "/merchant/orders/items/#{item.io_id}", method: :patch %>
+    <% else %>
+    Not enough in inventory to fulfull
+    <% end %>
+
+  </div>
+  <hr>
+<% end %>

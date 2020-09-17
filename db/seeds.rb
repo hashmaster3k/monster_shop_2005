@@ -9,6 +9,10 @@
 Merchant.destroy_all
 Item.destroy_all
 
+#merchants
+bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
+dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
+
 #user/merchant/admin
 @user = User.create!(name: 'Billy Joel',
                     address: '123 Song St.',
@@ -26,7 +30,8 @@ Item.destroy_all
                         zip: '12345',
                         email: 'merchant',
                         password: '123',
-                        role: 1)
+                        role: 1,
+                        merchant_id: bike_shop.id)
 
 @admin = User.create!(name: 'Chilly Billy',
                       address: '125 Song St.',
@@ -36,10 +41,6 @@ Item.destroy_all
                       email: 'admin',
                       password: '123',
                       role: 2)
-
-#merchants
-bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', city: 'Denver', state: 'CO', zip: 80203)
-dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
 #bike_shop items
 tire = bike_shop.items.create(name: "Gatorskins", description: "They'll never pop!", price: 100, image: "https://www.rei.com/media/4e1f5b05-27ef-4267-bb9a-14e35935f218?size=784x588", inventory: 12, quantity_purchased: 0)
