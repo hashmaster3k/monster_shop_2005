@@ -87,5 +87,18 @@ RSpec.describe 'Merchant orders show page'do
         expect(page).to_not have_button("Fulfill Order")
       end
     end
+
+    it 'cannot fulfull and order if it lacks the inventory' do
+      @paper.update_attribute(:inventory, 1)
+
+      visit "/merchant/orders/#{@order_1.id}"
+
+      within "#item-#{@paper.id}" do
+        expect(page).to have_content(@io1.order_status)
+        expect(page).to_not have_button("Fulfill Order")
+        expect(page).to have_content("Not enough in inventory to fulfull")
+      end
+
+    end
   end
 end
