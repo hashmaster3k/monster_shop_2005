@@ -22,4 +22,8 @@ class Order <ApplicationRecord
       update_attribute(:order_status, 'packaged')
     end
   end
+
+  def merchant_items(merch_id)
+    items.select("items.id, items.name, items.image, items.price, item_orders.quantity").joins(:item_orders).where(merchant_id: merch_id)
+  end
 end

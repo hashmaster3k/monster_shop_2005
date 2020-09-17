@@ -1,0 +1,15 @@
+<h1>Recipent Information</h1>
+<ul>
+  <li>Name: <%= @order.name %></li>
+  <li>Address: <%= @order.address %></li>
+</ul>
+
+<h1>My items from order:</h1>
+<% @order.merchant_items(current_user.merchant_id).each do |item| %>
+  <div id="item-<%= item.id %>">
+    <%= image_tag item.image%><br><br>
+    <%= link_to item.name, "/merchant/orders/#{@order.id}/items/#{item.id}" %><br>
+    <%= item.price %>
+    <%= item.quantity %>
+  </div>
+<% end %>
