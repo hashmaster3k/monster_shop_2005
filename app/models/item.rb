@@ -42,12 +42,4 @@ class Item <ApplicationRecord
     self.inventory -= quantity
     self.save
   end
-
-  def self.return_item_quantities
-    Item.all.each do |item|
-      qr = ItemOrder.where(item_id: item.id).first
-      item.inventory += qr.quantity
-      item.save
-    end
-  end
 end
