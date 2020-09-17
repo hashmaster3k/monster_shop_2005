@@ -1,0 +1,9 @@
+<h1>All Users</h1>
+
+<% @users.each do |user| %>
+  <div id="user-<%= user.id %>">
+    Name: <%= link_to user.name, "/admin/users/#{user.id}" %><br>
+    Signed up: <%= user.created_at %><br>
+    User type: <%= user.role %><br><br>
+  </div>
+<% end %>
