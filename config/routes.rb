@@ -57,8 +57,14 @@ Rails.application.routes.draw do
     get '/', to: 'dashboard#index'
     get '/dashboard', to: 'dashboard#index'
     get '/items', to: 'items#index'
+    get '/items/new', to: 'items#new'
+    post '/items/new', to: 'items#create'
+    patch '/items/:id', to: 'items#update'
+    delete '/items/:id', to: 'items#destroy'
+    get '/items/:id/edit', to: 'items#edit'
+    patch '/items/:id/edit', to: 'items#update_item'
     get '/orders/:id', to: 'orders#show'
-    patch 'orders/items/:id', to: 'item_orders#update'
+    patch '/orders/items/:id', to: 'item_orders#update'
   end
 
   namespace :admin do

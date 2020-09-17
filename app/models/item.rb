@@ -6,9 +6,9 @@ class Item <ApplicationRecord
 
   validates_presence_of :name,
                         :description,
-                        :price,
-                        :image,
-                        :inventory
+                        :price
+  validates_presence_of :image, allow_blank: true
+  validates_numericality_of :inventory, presence: true, greater_than_or_equal_to: 0
   validates_inclusion_of :active?, :in => [true, false]
   validates_numericality_of :price, greater_than: 0
 

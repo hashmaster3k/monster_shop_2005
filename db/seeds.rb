@@ -6,6 +6,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+User.destroy_all
 Merchant.destroy_all
 Item.destroy_all
 
@@ -14,7 +15,7 @@ bike_shop = Merchant.create(name: "Meg's Bike Shop", address: '123 Bike Rd.', ci
 dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', city: 'Denver', state: 'CO', zip: 80210)
 
 #user/merchant/admin
-@user = User.create!(name: 'Billy Joel',
+user = User.create!(name: 'Billy Joel',
                     address: '123 Song St.',
                     city: 'Las Vegas',
                     state: 'NV',
@@ -23,17 +24,17 @@ dog_shop = Merchant.create(name: "Brian's Dog Shop", address: '125 Doggo St.', c
                     password: '123',
                     role: 0)
 
-@merchant = User.create!(name: 'Joel Billy',
+merchant = User.create!(name: 'Joel Billy',
                         address: '125 Song St.',
                         city: 'Las Vegas',
                         state: 'NV',
                         zip: '12345',
                         email: 'merchant',
                         password: '123',
-                        role: 1,
-                        merchant_id: bike_shop.id)
-
-@admin = User.create!(name: 'Chilly Billy',
+                        merchant_id: bike_shop.id,
+                        role: 1)
+                        
+admin = User.create!(name: 'Chilly Billy',
                       address: '125 Song St.',
                       city: 'Las Vegas',
                       state: 'NV',

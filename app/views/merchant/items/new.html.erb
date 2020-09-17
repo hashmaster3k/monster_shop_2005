@@ -1,0 +1,18 @@
+<%= form_tag "/merchant/items/new", method: :post do %>
+  <%= label_tag :name %>
+  <%= text_field_tag :name, (if @item.present? then @item.name else nil end)%>
+
+  <%= label_tag :description %>
+  <%= text_field_tag :description, (if @item.present? then @item.description else nil end) %>
+
+  <%= label_tag :image %>
+  <%= text_field_tag :image, (if @item.present? then @item.image end) %>
+
+  <%= label_tag :price %>
+  <%= text_field_tag :price, (if @item.present? then @item.price else nil end) %>
+
+  <%= label_tag :inventory %>
+  <%= text_field_tag :inventory, (if @item.present? then @item.inventory else nil end) %>
+
+  <%= submit_tag "Create New Item" %>
+<% end %>
