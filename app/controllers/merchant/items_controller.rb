@@ -38,6 +38,21 @@ class Merchant::ItemsController < Merchant::BaseController
     end
   end
 
+  def edit
+    @item = Item.find(params[:id])
+  end
+
+  def update_item
+    @item = Item.find(params[:id])
+    if @item.update(item_params)
+      flash[:success] = "#{@item.name} was successfully updated."
+      redirect_to '/merchant/items'
+    else
+      flash[:error] = @item.errors.full_messages.to_sentence
+      render :edit
+    end
+  end
+
   private
   def item_params
     params.permit(:name,:description,:price,:inventory,:image)

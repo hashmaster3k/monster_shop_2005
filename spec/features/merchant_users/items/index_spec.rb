@@ -63,7 +63,7 @@ RSpec.describe 'Merchant dashboard items index' do
 
     expect(current_path).to eq("/merchant/items")
     expect(page).to have_content("#{@paper.name} is no longer for sale.")
-
+    
     within "#item-#{@pencil.id}" do
       expect(page).to have_content(@pencil.name)
       expect(page).to have_content(@pencil.description)
